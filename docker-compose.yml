@@ -1,0 +1,57 @@
+version: "3"
+# 管理的服务
+services:
+  redis-service:
+    container_name: redis-service
+    # 指定镜像
+    image: redis:4
+    ports:
+      # 端口映射
+      - 6379:6379
+    volumes:
+      # 目录映射
+#      - "${REDIS_DIR}/conf:/usr/local/etc/redis"
+      - "${REDIS_DIR}/conf/redis.conf:/usr/local/etc/redis/redis.conf"
+      - "${REDIS_DIR}/data:/data"
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=123456
+    command:
+      # 执行的命令
+      redis-server /usr/local/etc/redis/redis.conf
+    restart: always
+
+
+  mysql-service:
+    container_name: mysql-service
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - "${MYSQL_DIR}/data:/var/lib/mysql"
+      - "${MYSQL_DIR}/conf.d:/etc/mysql/conf.d"
+    restart: always
+
+
+  rabbitmq-service:
+    container_name: rabbitmq-service
+    image: rabbitmq:3.8.5-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - TZ=Asia/Shanghai
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+#    privileged: true
+#    volumes:
+#      - ${RABBITMQ_DIR}/data/rabbitmq:/var/lib/rabbitmq
+
+
+networks:
+  default:
+
