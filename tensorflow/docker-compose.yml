@@ -1,0 +1,12 @@
+version: "3"
+services:
+  tensorflow-gpu:
+    container_name: tensorflow-gpu
+    # 指定镜像
+    image: latest-gpu-jupyter
+    restart: always
+    ports:
+      - 8888:8888
+
+
+
