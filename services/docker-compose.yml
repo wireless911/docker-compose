@@ -47,10 +47,21 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-#    privileged: true
-#    volumes:
+    privileged: true
+    volumes:
 #      - ${RABBITMQ_DIR}/data/rabbitmq:/var/lib/rabbitmq
+      - ${RABBITMQ_DIR}/data/rabbitmq/log:/var/log/rabbitmq
 
+#  rabbitmq-service:
+#    container_name: rabbitmq-service
+#    image: bitnami/rabbitmq:3.8.3
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+#      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+#      - TZ=Asia/Shanghai
+#    restart: always
+#    ports:
+#      - "5672:5672"
 
 networks:
   default:

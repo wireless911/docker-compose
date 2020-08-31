@@ -1,0 +1,13 @@
+version: "3"
+services:
+  jupyter_lab:
+    container_name: jupyter_lab
+    # 指定镜像
+    build: .
+    restart: always
+    volumes:
+      - ./data/jupyter_lab:/home/jovyan/work
+    ports:
+      - 9999:8888
+    command:
+      jupyter lab --LabApp.token=''
